@@ -42,6 +42,9 @@ public final class VereinVerwaltungApp {
 
     public static void main(final String[] args) {
 
+        String tmpdir = System.getProperty("java.io.tmpdir");
+        System.out.println(tmpdir);
+
         try {
 
             /* Verwaltung-Komponente */

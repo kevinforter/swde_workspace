@@ -1,4 +1,4 @@
-package ch.hslu.informatik.swde.afg_02;
+package ch.hslu.informatik.swde.bmicalculator;
 
 public class BmiCalculator {
 

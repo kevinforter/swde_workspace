@@ -1,4 +1,4 @@
-package ch.hslu.informatik.swde.demo_01;//import org.junit.jupiter.api.BeforeEach;
+package ch.hslu.informatik.swde.triangle;//import org.junit.jupiter.api.BeforeEach;
 
 public class Triangle {
     double a, b, c, s, flaeche;

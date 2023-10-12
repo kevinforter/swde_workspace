@@ -1,9 +1,10 @@
-package ch.hslu.informatik.swde.demo_01;
+package triangle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import ch.hslu.informatik.swde.triangle.Triangle;
 import org.junit.jupiter.api.Test;
 
 public class TriangleTest {

@@ -1,5 +1,6 @@
-package ch.hslu.informatik.swde.afg_01;
+package finanzkalkulator;
 
+import ch.hslu.informatik.swde.finanzkalkulator.Finanzkalkulator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

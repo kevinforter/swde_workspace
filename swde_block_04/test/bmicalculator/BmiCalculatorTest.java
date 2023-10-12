@@ -1,5 +1,6 @@
-package ch.hslu.informatik.swde.afg_02;
+package bmicalculator;
 
+import ch.hslu.informatik.swde.bmicalculator.BmiCalculator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

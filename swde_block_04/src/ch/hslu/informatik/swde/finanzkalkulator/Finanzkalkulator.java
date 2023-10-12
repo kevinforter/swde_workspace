@@ -1,4 +1,4 @@
-package ch.hslu.informatik.swde.afg_01;
+package ch.hslu.informatik.swde.finanzkalkulator;
 
 /**
  * Stellt eine einfache Finanzkalkulator-Implementierung zur Verfügung.
