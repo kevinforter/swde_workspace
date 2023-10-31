@@ -276,14 +276,13 @@ public final class PersisterTxt implements Persister {
      */
     private String personAsString(final Person p) {
 
-        StringBuilder sBuilder = new StringBuilder();
-        sBuilder.append(p.getPersonNummer()).append(DELIMITER).append(p.getName()).append(DELIMITER)
-                .append(p.getVorname()).append(DELIMITER).append(geburtsDatumAsString(p.getGeburtsDatum()))
-                .append(DELIMITER).append(p.getAdresse().getStrasse()).append(DELIMITER).append(p.getAdresse().getPlz())
-                .append(DELIMITER).append(p.getAdresse().getOrt()).append(DELIMITER).append(p.getKontakt().getTelefon())
-                .append(DELIMITER).append(p.getKontakt().getEmail());
+        String sBuilder = p.getPersonNummer() + DELIMITER + p.getName() + DELIMITER +
+                p.getVorname() + DELIMITER + geburtsDatumAsString(p.getGeburtsDatum()) +
+                DELIMITER + p.getAdresse().getStrasse() + DELIMITER + p.getAdresse().getPlz() +
+                DELIMITER + p.getAdresse().getOrt() + DELIMITER + p.getKontakt().getTelefon() +
+                DELIMITER + p.getKontakt().getEmail();
 
-        return sBuilder.toString();
+        return sBuilder;
     }
 
     /**

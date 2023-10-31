@@ -69,7 +69,7 @@ public final class UI {
     /**
      * Anwendungslogik-Komponente.
      */
-    private Verwaltung verwaltung;
+    private final Verwaltung verwaltung;
 
     public UI(final Verwaltung verwaltung) {
         this.verwaltung = verwaltung;
@@ -488,7 +488,7 @@ public final class UI {
                     .append("PLZ").append(delemiter).append("ORT").append(delemiter).append("TELEFON").append(delemiter)
                     .append("E-MAIL");
 
-            printer.println(sBuilder.toString());
+            printer.println(sBuilder);
 
             sBuilder.setLength(0);
 
@@ -501,7 +501,7 @@ public final class UI {
                         .append(delemiter).append(p.getKontakt().getTelefon()).append(delemiter)
                         .append(p.getKontakt().getEmail());
 
-                printer.println(sBuilder.toString());
+                printer.println(sBuilder);
 
                 sBuilder.setLength(0);
             }

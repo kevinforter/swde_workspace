@@ -148,7 +148,7 @@ public final class Adresse implements Comparable<Adresse>, Serializable {
 
     @Override
     public int compareTo(final Adresse param) {
-        if (Integer.compare(this.plz, param.plz) == 0) {
+        if (this.plz == param.plz) {
             if (this.ort.compareTo(param.ort) == 0) {
                 return strasse.compareTo(param.strasse);
             }

@@ -41,7 +41,7 @@ public final class VerwaltungImpl implements Verwaltung {
     /**
      * Persister-Komponente.
      */
-    private Persister persister;
+    private final Persister persister;
     
     public VerwaltungImpl() {
     	 try {
