@@ -1,0 +1,28 @@
+# specify maven image
+image: maven:3.9.5-amazoncorretto-17
+
+stages:          
+  - build
+  - test
+  - package
+
+build-job:       
+  stage: build
+  script:
+    - echo "Compiling the code..."
+    - mvn clean compile
+    - echo "Compiling finished..."
+
+test-job:   
+  stage: test   
+  script:
+    - echo "Running integration tests..."
+    - mvn verify
+    - echo "Integration tests finished..."
+
+package-job:   
+  stage: package    
+  script:
+    - echo "Running packaging..."
+    - mvn package
+    - echo "Packaging finished..."

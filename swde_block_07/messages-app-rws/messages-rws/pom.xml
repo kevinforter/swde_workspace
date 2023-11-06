@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>messages-app</artifactId>
+		<groupId>ch.hslu.informatik</groupId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>messages-rws</artifactId>
+	<name>messages-rws</name>
+	<properties>
+		<jax-rs-api.version>3.1.0</jax-rs-api.version>
+		<jersey.version>3.1.3</jersey.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>ch.hslu.informatik</groupId>
+			<artifactId>messages-domain</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.hslu.informatik</groupId>
+			<artifactId>messages-business-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.hslu.informatik</groupId>
+			<artifactId>messages-business-impl</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<!-- Jersey Spezifikation -->
+		<dependency>
+			<groupId>jakarta.ws.rs</groupId>
+			<artifactId>jakarta.ws.rs-api</artifactId>
+			<version>${jax-rs-api.version}</version>
+		</dependency>
+		<!-- Jersey Provider -->
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<!-- Container für HttpServer -->
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-jdk-http</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<!-- Injection -->
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+		<!-- Jackson-Bibliothek (marshalling / unmarshalling POJO -> JSON und
+		JSON -> POJO -->
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.6.1</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.directory}/lib
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

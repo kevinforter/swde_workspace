@@ -1,0 +1,11 @@
+Ausführung starten:
+
+1. Eine Shell im Verzeichnis 'rws-runnable' öffnen
+2. Folgenden Befehl ausführen: 
+ 
+   java -cp lib/* ch.hslu.informatik.swde.messages.srv.ServerApp
+
+Hinweis:
+Die Linux / Max OS X Benutzer müssen evtl. die Angaben zum CLASSPATH in Anführungs- und Schlusszeichen einschliessen:
+
+   java -cp "lib/*" ch.hslu.informatik.swde.messages.srv.ServerApp
