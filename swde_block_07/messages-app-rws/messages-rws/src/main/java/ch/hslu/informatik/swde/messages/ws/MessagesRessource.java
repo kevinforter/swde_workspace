@@ -102,14 +102,16 @@ public class MessagesRessource {
 	}
 
 	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	public Response deleteById(@PathParam("id") int id) {
 
-		Message msgById = service.findById(id);
+		Message msgToDelete = service.findById(id);
 
-		if(msgById != null) {
+		if(msgToDelete != null) {
 			service.deleteById(id);
-			return Response.ok(msgById).build();
+			return Response.ok(msgToDelete).build();
+			//return Response.noContent().build():
 		} else {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
