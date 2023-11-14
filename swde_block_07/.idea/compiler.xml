@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Eclipse" />
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="messages-persister-api" />
+        <module name="messages-persister-impl" />
+        <module name="messages-business-api" />
+        <module name="messages-ui" />
+        <module name="messages-domain" />
+        <module name="messages-business-impl" />
+        <module name="messages-rws" />
+        <module name="messages-rws-proxy" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="messages-app" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
