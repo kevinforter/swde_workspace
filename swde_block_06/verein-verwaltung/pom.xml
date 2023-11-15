@@ -36,6 +36,7 @@
         <module>verein-verwaltung-persister-api</module>
         <module>verein-verwaltung-persister-impl-ser</module>
         <module>verein-verwaltung-persister-impl-txt</module>
+        <module>verein-verwaltung-persister-impl-orm</module>
         <module>verein-verwaltung-cli</module>
     </modules>
 

@@ -17,6 +17,7 @@ package ch.hslu.swde.vereinverwaltung;
 
 import java.io.File;
 
+import ch.hslu.swde.vereinverwaltung.persister.txt.PersisterTxt;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -82,7 +83,7 @@ public final class VereinVerwaltungApp {
         if (persisterTyp == FILE_PERSISTER_PLAIN_TEXT) {
             fileName = fileNameText;
             File file = new File(userHome + File.separator + fileName);
-            persister = new ch.hslu.swde.vereinverwaltung.persister.txt.PersisterTxt(file);
+            persister = new PersisterTxt(file);
         } else if (persisterTyp == FILE_PERSISTER_SERIALIZATION) {
             fileName = fileNameSerializierung;
             File file = new File(userHome + File.separator + fileName);

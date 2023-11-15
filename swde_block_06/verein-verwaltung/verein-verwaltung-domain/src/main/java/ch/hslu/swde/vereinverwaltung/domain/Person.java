@@ -15,6 +15,8 @@
  */
 package ch.hslu.swde.vereinverwaltung.domain;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -25,10 +27,15 @@ import java.util.Objects;
  * @author Jordan Sucur
  * @version 1.0
  */
-public final class Person implements Comparable<Person>, Serializable {
+
+@Entity
+public class Person implements Comparable<Person>, Serializable {
 
     private static final long serialVersionUID = 8599820025380556938L;
 
+    @Id
+    @GeneratedValue
+    private int id;
     /**
      * Die Person-Nummer.
      */
@@ -52,11 +59,13 @@ public final class Person implements Comparable<Person>, Serializable {
     /**
      * Der Kontakt.
      */
+    @OneToOne(orphanRemoval = true, cascade = {CascadeType.PERSIST})
     private Kontakt kontakt;
 
     /**
      * Die Adresse.
      */
+    @OneToOne(orphanRemoval = true, cascade = {CascadeType.PERSIST})
     private Adresse adresse;
 
     /**
@@ -83,6 +92,13 @@ public final class Person implements Comparable<Person>, Serializable {
         this.adresse = adresse;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     /**
      * Liefert die Person-Nummer zurück.
      *

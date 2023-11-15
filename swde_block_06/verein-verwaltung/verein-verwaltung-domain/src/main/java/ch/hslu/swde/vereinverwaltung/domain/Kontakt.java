@@ -15,6 +15,10 @@
  */
 package ch.hslu.swde.vereinverwaltung.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -24,10 +28,15 @@ import java.util.Objects;
  * @author Jordan Sucur
  * @version 1.0
  */
-public final class Kontakt implements Serializable, Comparable<Kontakt> {
+
+@Entity
+public class Kontakt implements Serializable, Comparable<Kontakt> {
 
     private static final long serialVersionUID = 2078708549270457759L;
 
+    @Id
+    @GeneratedValue
+    private int id;
     /**
      * Die Telefon-Nummer.
      */
@@ -56,6 +65,13 @@ public final class Kontakt implements Serializable, Comparable<Kontakt> {
         this.email = email;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     /**
      * Liefert die Telefon-Nummer zurück.
      *

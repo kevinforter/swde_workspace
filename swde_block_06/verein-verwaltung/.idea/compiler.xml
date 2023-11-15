@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="verein-verwaltung-persister-impl-orm" />
+        <module name="verein-verwaltung-domain" />
+        <module name="verein-verwaltung-business-api" />
+        <module name="verein-verwaltung-cli" />
+        <module name="verein-verwaltung-persister-impl-ser" />
+        <module name="verein-verwaltung-persister-impl-txt" />
+        <module name="verein-verwaltung-persister-api" />
+        <module name="verein-verwaltung-business-impl" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="verein-verwaltung" options="-Xlint:all,-processing" />
+      <module name="verein-verwaltung-business-api" options="-Xlint:all,-processing" />
+      <module name="verein-verwaltung-business-impl" options="-Xlint:all,-processing" />
+      <module name="verein-verwaltung-cli" options="-Xlint:all,-processing" />
+      <module name="verein-verwaltung-domain" options="-Xlint:all,-processing" />
+      <module name="verein-verwaltung-persister-api" options="-Xlint:all,-processing" />
+      <module name="verein-verwaltung-persister-impl-orm" options="-Xlint:all,-processing" />
+      <module name="verein-verwaltung-persister-impl-ser" options="-Xlint:all,-processing" />
+      <module name="verein-verwaltung-persister-impl-txt" options="-Xlint:all,-processing" />
+    </option>
+  </component>
+</project>

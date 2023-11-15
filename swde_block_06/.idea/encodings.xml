@@ -7,5 +7,21 @@
     <file url="file://$PROJECT_DIR$/jpa-demos-original/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jpa-demos/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/jpa-demos/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-business-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-business-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-business-impl/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-business-impl/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-cli/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-cli/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-domain/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-persister-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-persister-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-persister-impl-ser/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-persister-impl-ser/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-persister-impl-txt/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/verein-verwaltung/verein-verwaltung-persister-impl-txt/src/main/resources" charset="UTF-8" />
   </component>
 </project>

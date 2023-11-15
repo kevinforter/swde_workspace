@@ -15,19 +15,17 @@
  */
 package ch.hslu.swde.vereinverwaltung.persister.txt;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 /**
  * Testfälle für
- * {@link ch.hslu.swde.vereinverwaltung.persister.txt.PersisterTxt}.
+ * {@link PersisterTxt}.
  */
 public class PersisterTxtIT {
 
     /**
      * Test of
-     * {@link ch.hslu.swde.vereinverwaltung.persister.txt.PersisterTxt#speichern(ch.hslu.prg.vereinverwaltung.domain.Person)}.
+     * {@link PersisterTxt#speichern(ch.hslu.prg.vereinverwaltung.domain.Person)}.
      */
     @Test
     public void testSpeichern() {

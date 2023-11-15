@@ -21,12 +21,21 @@ package ch.hslu.swde.vereinverwaltung.domain;
  * @author Jordan Sucur
  * @version 1.0
  */
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-public final class Adresse implements Comparable<Adresse>, Serializable {
+@Entity
+public class Adresse implements Comparable<Adresse>, Serializable {
 
     private static final long serialVersionUID = -1915527071263231266L;
+
+    @Id
+    @GeneratedValue
+    private int id;
 
     /**
      * Die Strasse.
@@ -60,6 +69,13 @@ public final class Adresse implements Comparable<Adresse>, Serializable {
         this.ort = ort;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     /**
      * Liefert die Strasse zurück.
      *
