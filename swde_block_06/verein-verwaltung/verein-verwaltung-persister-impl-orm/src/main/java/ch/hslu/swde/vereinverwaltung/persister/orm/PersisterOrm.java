@@ -15,22 +15,14 @@
  */
 package ch.hslu.swde.vereinverwaltung.persister.orm;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import ch.hslu.swde.vereinverwaltung.domain.Adresse;
-import ch.hslu.swde.vereinverwaltung.domain.Kontakt;
 import ch.hslu.swde.vereinverwaltung.domain.Person;
 import ch.hslu.swde.vereinverwaltung.persister.api.Persister;
 
@@ -48,30 +40,46 @@ public final class PersisterOrm implements Persister {
 
     private static final Logger LOGGER = LogManager.getLogger(PersisterOrm.class);
 
-    /**
-     * File, in dem Daten verwaltet werden.
-     */
+    /* Hilfsvariable, um ID-Werte (personNummer) zu generieren */
+    private static int nextId;
 
+    public PersisterOrm() throws Exception {
+        nextId = 1;
+    }
 
     /*
      * @see prg.vereinverwaltung.persister.api.Persister#speichern(prg.
      * vereinverwaltung.domain.Person)
      */
     @Override
-    public Person speichern(final Person person) throws Exception {
+    public Person speichern(final Person person) throws Exception{
 
-        try (PrintWriter writer = new PrintWriter(new FileWriter(file, true), true)) {
+        EntityManager em = JpaUtil.createEntityManager();
+
+        try {
 
             if (person.getPersonNummer() == 0) {
                 /* Neues Objekt: Person-Nummer setzen */
                 person.setPersonNummer(nextId++);
             }
 
-            String str = personAsString(person);
-            writer.println(str);
-        }
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
 
-        return person;
+            return em.find(Person.class, person.getId());
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+
+            throw e;
+
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
     }
 
     /*
@@ -79,16 +87,30 @@ public final class PersisterOrm implements Persister {
      * vereinverwaltung.domain.Person)
      */
     @Override
-    public Person aktualisieren(final Person person) throws Exception {
+    public Person aktualisieren(final Person person) {
 
-        if (person.getPersonNummer() != 0) {
-            /* Objekt bereits gespeichert: Update durchführen */
-            loeschen(person.getPersonNummer());
-            return speichern(person);
-        } else {
-            /* Objekt nocht nicht gespeichert: Speichern */
-            return speichern(person);
+        EntityManager em = JpaUtil.createEntityManager();
+
+        Person perToUpdate = em.find(Person.class, person.getId());
+
+
+        try {
+            em.getTransaction().begin();
+            perToUpdate = person;
+            em.merge(perToUpdate);
+            em.getTransaction().commit();
+
+            return em.find(Person.class, perToUpdate.getId());
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
         }
+        return em.find(Person.class, perToUpdate.getId());
     }
 
     /*
@@ -96,7 +118,7 @@ public final class PersisterOrm implements Persister {
      * vereinverwaltung.domain.Person)
      */
     @Override
-    public boolean loeschen(final Person person) throws Exception {
+    public boolean loeschen(final Person person) {
         return loeschen(person.getPersonNummer());
     }
 
@@ -104,34 +126,28 @@ public final class PersisterOrm implements Persister {
      * @see prg.vereinverwaltung.persister.api.Persister#loeschen(int)
      */
     @Override
-    public boolean loeschen(final int personNummer) throws Exception {
+    public boolean loeschen(final int personNummer) {
 
-        ArrayList<String> liste = new ArrayList<>();
+        EntityManager em = JpaUtil.createEntityManager();
 
-        /* Alles aus der Datei auslesen */
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line = null;
-            String id = "" + personNummer;
+        Person perToDelete = em.find(Person.class, personNummer);
 
-            while ((line = br.readLine()) != null) {
+        if (perToDelete != null) {
 
-                // Zeile, die mit 'personNummer' startet, wird rausgelassen (somit gelöscht)
-                if (!line.startsWith(id)) {
-                    liste.add(line);
+            try {
+                em.getTransaction().begin();
+                em.remove(perToDelete);
+                em.getTransaction().commit();
+            } catch (Exception e) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+            } finally {
+                if (em.isOpen()) {
+                    em.close();
                 }
             }
         }
-
-        /*
-         * Alles in die Datei schreiben (die zu löschende Zeile ist nicht mehr dabei)
-         */
-        try (PrintWriter writer = new PrintWriter(new FileWriter(file, false))) {
-
-            for (String str : liste) {
-                writer.println(str);
-            }
-        }
-
         return true;
     }
 
@@ -140,163 +156,44 @@ public final class PersisterOrm implements Persister {
      * java.lang.String)
      */
     @Override
-    public List<Person> finde(final String name, final String vorname) throws Exception {
+    public List<Person> finde(final String name, final String vorname) {
 
-        List<Person> liste = new ArrayList<>();
+        EntityManager em = JpaUtil.createEntityManager();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line = null;
+        TypedQuery<Person> tQry = em.createQuery("SELECT e FROM Person e WHERE e.name=:name AND e.vorname=:vorname" , Person.class);
+        tQry.setParameter("name", name);
+        tQry.setParameter("vorname", vorname);
+        List<Person> perListe = tQry.getResultList();
 
-            while ((line = br.readLine()) != null) {
-
-                String[] parts = line.split(DELIMITER);
-
-                if (name.equals(parts[1]) && vorname.equals(parts[2])) {
-                    liste.add(getAsPerson(line));
-                }
-            }
-        }
-
-        return liste;
+        return perListe != null ? perListe : new ArrayList<>();
     }
 
     /*
      * @see prg.vereinverwaltung.persister.api.Persister#finde(int)
      */
     @Override
-    public Person finde(final int personNummer) throws Exception {
+    public Person finde(final int personNummer) {
 
-        Person person = null;
+        EntityManager em = JpaUtil.createEntityManager();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line = null;
+        Person perFromDB = em.find(Person.class, personNummer);
 
-            while ((line = br.readLine()) != null) {
+        em.close();
 
-                String[] parts = line.split(DELIMITER);
-
-                if (Integer.parseInt(parts[0]) == personNummer) {
-                    person = getAsPerson(line);
-                }
-            }
-        }
-
-        return person;
+        return perFromDB;
     }
 
     /*
      * @see prg.vereinverwaltung.persister.api.Persister#alle()
      */
     @Override
-    public List<Person> alle() throws Exception {
+    public List<Person> alle() {
 
-        List<Person> liste = new ArrayList<>();
+        EntityManager em = JpaUtil.createEntityManager();
 
-        if (file.exists()) {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line = null;
+        TypedQuery<Person> tQry = em.createQuery("SELECT e FROM Person e", Person.class);
+        List<Person> perListe = tQry.getResultList();
 
-                while ((line = br.readLine()) != null) {
-                    liste.add(getAsPerson(line));
-                }
-            }
-        }
-
-        return liste;
+        return perListe != null ? perListe : new ArrayList<>();
     }
-
-    /**
-     * HELPER - Initialisiert den nextId Wert.
-     *
-     * @throws IOException IOException.
-     */
-    private void initNextId() throws IOException {
-        int maxValue = 0;
-
-        /*
-         * Es werden alle Zeilen gelesen und alle 'personNummer' ausgelesen. Der Wert
-         * für 'nextId' wird der Wert sein, der um Eins grösser als 'maxValue' ist.
-         */
-        try (BufferedReader bReader = new BufferedReader(new FileReader(file))) {
-            String line = null;
-
-            while ((line = bReader.readLine()) != null) {
-                String[] parts = line.split(DELIMITER);
-                int value = Integer.parseInt(parts[0]);
-
-                if (value > maxValue) {
-                    maxValue = value;
-                }
-            }
-
-            /* nextId setzen */
-            nextId = maxValue + 1;
-
-        } catch (FileNotFoundException e) {
-            LOGGER.error("File nicht gefunden: ", e);
-            throw e;
-        } catch (IOException e) {
-            LOGGER.error("Fehler beim Auslesen des 'nextId' Werts: ", e);
-            throw e;
-        }
-    }
-
-    /**
-     * HELPER - Liefert die Stringdarstellung der Person-Instanz zurück.
-     *
-     * @param p Person.
-     * @return String.
-     */
-    private String personAsString(final Person p) {
-
-        StringBuilder sBuilder = new StringBuilder();
-        sBuilder.append(p.getPersonNummer()).append(DELIMITER).append(p.getName()).append(DELIMITER)
-                .append(p.getVorname()).append(DELIMITER).append(geburtsDatumAsString(p.getGeburtsDatum()))
-                .append(DELIMITER).append(p.getAdresse().getStrasse()).append(DELIMITER).append(p.getAdresse().getPlz())
-                .append(DELIMITER).append(p.getAdresse().getOrt()).append(DELIMITER).append(p.getKontakt().getTelefon())
-                .append(DELIMITER).append(p.getKontakt().getEmail());
-
-        return sBuilder.toString();
-    }
-
-    /**
-     * Erstellt das Person-Objekt aus dem übergebenen String.
-     *
-     * @param line Line.
-     * @return Person.
-     */
-    private Person getAsPerson(final String line) {
-
-        String[] parts = line.split(DELIMITER);
-
-        int personNummer = Integer.parseInt(parts[0]);
-        String name = parts[1];
-        String vorname = parts[2];
-        int jahr = Integer.parseInt(parts[3]);
-        int monat = Integer.parseInt(parts[4]);
-        int tag = Integer.parseInt(parts[5]);
-        String strasse = parts[6];
-        int plz = Integer.parseInt(parts[7]);
-        String ort = parts[8];
-        String telefon = parts[9];
-        String email = parts[10];
-
-        LocalDate datum = LocalDate.of(jahr, monat, tag);
-
-        Person person = new Person(name, vorname, datum, new Kontakt(telefon, email), new Adresse(strasse, plz, ort));
-        person.setPersonNummer(personNummer);
-
-        return person;
-    }
-
-    /**
-     * HELPER - Liefert die Stringdarstellung der Datums zurück.
-     *
-     * @param d Datum.
-     * @return String.
-     */
-    private String geburtsDatumAsString(final LocalDate d) {
-        return d.getYear() + DELIMITER + d.getMonth().getValue() + DELIMITER + d.getDayOfMonth();
-    }
-
 }

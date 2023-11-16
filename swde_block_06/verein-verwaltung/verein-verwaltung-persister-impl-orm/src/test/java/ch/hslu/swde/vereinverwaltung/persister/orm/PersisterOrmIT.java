@@ -15,7 +15,15 @@
  */
 package ch.hslu.swde.vereinverwaltung.persister.orm;
 
+import ch.hslu.swde.vereinverwaltung.domain.Person;
+import ch.hslu.swde.vereinverwaltung.persister.api.Persister;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Testfälle für
@@ -25,10 +33,29 @@ public class PersisterOrmIT {
 
     /**
      * Test of
-     * {@link PersisterOrm#speichern(ch.hslu.prg.vereinverwaltung.domain.Person)}.
+     * .
      */
+    @BeforeEach
+    void setUp() {
+        Util.cleanDatabase();
+    }
+
     @Test
-    public void testSpeichern() {
-        // Hier den Testfall implementieren.
+    void speichern() throws Exception {
+
+        List<Person> perList = Util.createPersonListe();
+
+        Persister dao = new PersisterOrm();
+        for (Person per : perList) {
+            dao.speichern(per);
+        }
+
+        int anzahl = dao.alle().size();
+        assertEquals(perList.size(), anzahl);
+
+        for (Person per : dao.alle()) {
+            Person perFromDb = dao.finde(per.getId());
+            assertNotNull(perFromDb);
+        }
     }
 }
