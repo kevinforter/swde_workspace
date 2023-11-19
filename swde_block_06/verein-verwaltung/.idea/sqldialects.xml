@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/verein-verwaltung-persister-impl-orm/src/main/java/ch/hslu/swde/vereinverwaltung/persister/orm/PersisterOrm.java" dialect="GenericSQL" />
+  </component>
+</project>

@@ -6,26 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jpa-demos (2)" />
-        <module name="jpa-demos (1)" />
+        <module name="jpa-demos-original" />
         <module name="jpa-demos-derby" />
-      </profile>
-      <profile name="Annotation profile for verein-verwaltung" enabled="true">
-        <sourceOutputDir name="../target/generated-sources/annotations" />
-        <sourceTestOutputDir name="../target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="jpa-demos" target="16" />
-      <module name="verein-verwaltung-business-api" target="1.5" />
-      <module name="verein-verwaltung-business-impl" target="1.5" />
-      <module name="verein-verwaltung-cli" target="1.5" />
-      <module name="verein-verwaltung-domain" target="1.5" />
-      <module name="verein-verwaltung-persister-api" target="1.5" />
-      <module name="verein-verwaltung-persister-impl-orm" target="1.5" />
-      <module name="verein-verwaltung-persister-impl-ser" target="1.5" />
-      <module name="verein-verwaltung-persister-impl-txt" target="1.5" />
+      <module name="jpa-demos (1)" target="16" />
+      <module name="jpa-demos (2)" target="16" />
     </bytecodeTargetLevel>
   </component>
 </project>

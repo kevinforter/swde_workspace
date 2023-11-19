@@ -15,6 +15,7 @@
  */
 package ch.hslu.swde.vereinverwaltung.persister.orm;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,65 @@ public final class PersisterOrm implements Persister {
     private static int nextId;
 
     public PersisterOrm() throws Exception {
-        nextId = 1;
+        nextId = 0;
+        init();
+    }
+
+    private void init() throws Exception {
+
+        String url = "jdbc:postgresql://localhost:5432/verein_verwaltung";
+        String username = "postgres";
+        String password = "postgres";
+
+        Connection connection = DriverManager.getConnection(url, username, password);
+
+        DatabaseMetaData metaData = connection.getMetaData();
+        String tableName = "person";
+
+        ResultSet resultSet = metaData.getTables(null, null, tableName, new String[]{"TABLE"});
+
+        if (!resultSet.next()) {
+            System.out.println("Table " + tableName + " does not exist");
+
+            nextId = 1;
+        } else {
+            int maxValue = 0;
+            System.out.println("Table " + tableName + " exists");
+
+            String query = "SELECT COUNT(*) FROM " + tableName;
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rowCountResult = statement.executeQuery();
+
+            rowCountResult.next();
+            int rowCount = rowCountResult.getInt(1);
+
+            if (rowCount == 0) {
+                System.out.println("Table " + tableName + " is empty");
+            } else {
+                System.out.println("Table " + tableName + " is not empty");
+
+                String lastValueQuery = "SELECT personNummer FROM " + tableName + " ORDER BY personNummer DESC LIMIT 1";
+                PreparedStatement lastValueStatement = connection.prepareStatement(lastValueQuery);
+                ResultSet lastValueResult = lastValueStatement.executeQuery();
+
+                lastValueResult.next();
+                int value = lastValueResult.getInt(1);
+
+                if (value > maxValue) {
+                    maxValue = value;
+                }
+            }
+
+            nextId = maxValue + 1;
+
+        }
+
+        if (nextId == 0) {
+            String msg = "Der Wert für 'nextId' konnte nicht ausgelesen werden!";
+            throw new Exception(msg);
+        }
+
+        connection.close();
     }
 
     /*

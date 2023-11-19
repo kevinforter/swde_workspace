@@ -14,5 +14,8 @@
         <module name="messages-business-api" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="messages-app-rws" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
