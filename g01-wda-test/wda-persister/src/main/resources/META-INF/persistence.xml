@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
+
+	<persistence-unit name="derbyPU" transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+		<class>ch.hslu.swde.wda.domain.RemoveMe</class>
+
+		<validation-mode>AUTO</validation-mode>
+
+		<properties>
+			<property name="jakarta.persistence.jdbc.driver"
+					  value="org.apache.derby.jdbc.EmbeddedDriver"/>
+			<property name="jakarta.persistence.jdbc.url"
+					  value="jdbc:derby:target/my_project_db;create=true"/>
+			<property name="eclipselink.ddl-generation"
+					  value="create-tables"/>
+			<property name="eclipselink.ddl-generation.output-mode"
+					  value="database"/>
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="postgresPU" transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+		<class>ch.hslu.swde.wda.domain.weatherData</class>
+
+		<validation-mode>AUTO</validation-mode>
+
+		<properties>
+			<property name="jakarta.persistence.jdbc.driver"
+					  value="org.postgresql.Driver" />
+			<property name="jakarta.persistence.jdbc.url"
+					  value="jdbc:postgresql://localhost:5432/wda_db" />
+			<property name="jakarta.persistence.jdbc.user"
+					  value="postgres" />
+			<property name="jakarta.persistence.jdbc.password"
+					  value="Igu8uids." />
+
+			<property name="eclipselink.ddl-generation.output-mode"
+					  value="postgres" />
+
+			<property name="eclipselink.ddl-generation"
+					  value="create-tables" />
+
+			<!-- SQL-Statements ausgeben (JPA-Provider spezifisch, nur während der
+				Entwicklungszeit sinnvoll!) -->
+			<property name="eclipselink.logging.level.sql" value="FINE" />
+			<property name="eclipselink.logging.parameters" value="true" />
+
+		</properties>
+	</persistence-unit>
+
+</persistence>

@@ -30,7 +30,7 @@ import jakarta.persistence.Persistence;
  */
 public class JpaUtil {
 
-	private static String persistenceUnitName = "messagesPU";
+	private static String persistenceUnitName = "JpaDemosPU";
 
 	private JpaUtil() {
 		// nichts machen

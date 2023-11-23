@@ -14,4 +14,37 @@
 			<property name="eclipselink.ddl-generation.output-mode" value="database" />
 		</properties>
 	</persistence-unit>
+
+	<persistence-unit name="JpaDemosPU"
+					  transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+		<class>ch.hslu.informatik.swde.messages.domain.Message</class>
+
+		<validation-mode>AUTO</validation-mode>
+
+		<properties>
+			<property name="jakarta.persistence.jdbc.driver"
+					  value="org.postgresql.Driver" />
+			<property name="jakarta.persistence.jdbc.url"
+					  value="jdbc:postgresql://localhost:5432/message_app_db" />
+			<property name="jakarta.persistence.jdbc.user"
+					  value="postgres" />
+			<property name="jakarta.persistence.jdbc.password"
+					  value="postgres" />
+
+			<property name="eclipselink.ddl-generation.output-mode"
+					  value="database" />
+
+			<property name="eclipselink.ddl-generation"
+					  value="create-tables" />
+
+			<!-- SQL-Statements ausgeben (JPA-Provider spezifisch, nur während der
+				Entwicklungszeit sinnvoll!) -->
+			<property name="eclipselink.logging.level.sql" value="FINE" />
+			<property name="eclipselink.logging.parameters" value="true" />
+
+		</properties>
+	</persistence-unit>
 </persistence>

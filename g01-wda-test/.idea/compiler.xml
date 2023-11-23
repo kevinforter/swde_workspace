@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="g01-wda-persister" />
+        <module name="g01-wda-ui" />
+        <module name="g01-wda-reader" />
+        <module name="g01-wda-domain" />
+        <module name="g01-wda-business" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="g01-wda" options="-Xlint:all,-processing" />
+      <module name="g01-wda-business" options="-Xlint:all,-processing" />
+      <module name="g01-wda-domain" options="-Xlint:all,-processing" />
+      <module name="g01-wda-persister" options="-Xlint:all,-processing" />
+      <module name="g01-wda-reader" options="-Xlint:all,-processing" />
+      <module name="g01-wda-ui" options="-Xlint:all,-processing" />
+    </option>
+  </component>
+</project>
